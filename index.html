@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mi amor, ¿cenas conmigo?</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #1a0808;
+        min-height: 100vh;
+        font-family: "Lato", sans-serif;
+        color: #f5e6d0;
+      }
+      .header {
+        text-align: center;
+        padding: 3rem 2rem 1.5rem;
+      }
+      .rose {
+        font-size: 3rem;
+        display: block;
+        margin-bottom: 1rem;
+        animation: float 3s ease-in-out infinite;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+      .sup {
+        font-size: 11px;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        color: #c9a96e;
+        margin-bottom: 0.8rem;
+      }
+      .titulo {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.2rem, 6vw, 3.5rem);
+        color: #f5e6d0;
+        line-height: 1.3;
+      }
+      .titulo em {
+        color: #c9a96e;
+        font-style: italic;
+      }
+      .divrow {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        justify-content: center;
+        margin: 1.5rem 0;
+      }
+      .dl {
+        width: 80px;
+        height: 1px;
+        background: linear-gradient(to right, transparent, #c9a96e);
+      }
+      .dr {
+        width: 80px;
+        height: 1px;
+        background: linear-gradient(to left, transparent, #c9a96e);
+      }
+      .msgcard {
+        background: rgba(255, 255, 255, 0.04);
+        border: 0.5px solid rgba(201, 169, 110, 0.3);
+        border-radius: 16px;
+        margin: 0 auto 1.5rem;
+        max-width: 600px;
+        padding: 2rem 2.5rem;
+        text-align: center;
+      }
+      .msgcard p {
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-size: 1.1rem;
+        line-height: 2;
+        color: #e8d5b7;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1rem;
+        margin: 0 auto 1.5rem;
+        max-width: 600px;
+      }
+      .dc {
+        background: rgba(255, 255, 255, 0.04);
+        border: 0.5px solid rgba(201, 169, 110, 0.2);
+        border-radius: 12px;
+        padding: 1.2rem;
+        text-align: center;
+      }
+      .ci {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+      .cl {
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #8a7560;
+        margin-bottom: 0.3rem;
+      }
+      .cv {
+        font-family: "Playfair Display", serif;
+        font-size: 1rem;
+        color: #f5e6d0;
+      }
+      .rsvpw {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      .rbtn {
+        background: transparent;
+        border: 1px solid #c9a96e;
+        color: #c9a96e;
+        font-family: "Lato", sans-serif;
+        font-size: 12px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        padding: 14px 42px;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .rbtn:hover {
+        background: rgba(201, 169, 110, 0.15);
+        transform: scale(1.02);
+      }
+      .rmsg {
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        color: #c9a96e;
+        font-size: 1.1rem;
+        margin-top: 1rem;
+        display: none;
+      }
+
+      /* Selector de canciones */
+      .song-selector {
+        background: rgba(255, 255, 255, 0.03);
+        border: 0.5px solid rgba(201, 169, 110, 0.2);
+        border-radius: 12px;
+        margin: 0 auto 1rem;
+        max-width: 600px;
+        padding: 0.8rem 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .song-label {
+        font-size: 11px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #c9a96e;
+      }
+      .song-buttons {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .song-btn {
+        background: transparent;
+        border: 1px solid rgba(201, 169, 110, 0.4);
+        color: #c9a96e;
+        font-size: 12px;
+        padding: 6px 14px;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: "Lato", sans-serif;
+      }
+      .song-btn:hover {
+        background: rgba(201, 169, 110, 0.15);
+        border-color: #c9a96e;
+      }
+      .song-btn.active {
+        background: #c9a96e;
+        color: #1a0808;
+        border-color: #c9a96e;
+      }
+
+      .media {
+        margin: 0 auto 2rem;
+        max-width: 600px;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 0.5px solid rgba(201, 169, 110, 0.35);
+        background: #0d0404;
+      }
+      .ss {
+        position: relative;
+        width: 100%;
+        height: 380px;
+        background: #0d0404;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .simg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        opacity: 0;
+        transition: opacity 1.4s ease-in-out;
+        background: #0d0404;
+      }
+      .simg.act {
+        opacity: 1;
+      }
+      .sov {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 80px;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          rgba(8, 1, 1, 0.85)
+        );
+        pointer-events: none;
+      }
+      .dots {
+        position: absolute;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 7px;
+        z-index: 3;
+      }
+      .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.25);
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .dot.act {
+        background: #c9a96e;
+      }
+      .arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.4);
+        border: none;
+        color: rgba(201, 169, 110, 0.7);
+        font-size: 1.4rem;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+      }
+      .arrow:hover {
+        background: rgba(0, 0, 0, 0.7);
+        color: #c9a96e;
+      }
+      .arrow.left {
+        left: 10px;
+      }
+      .arrow.right {
+        right: 10px;
+      }
+      .mbar {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 20px;
+        background: rgba(4, 0, 0, 0.97);
+        border-top: 0.5px solid rgba(201, 169, 110, 0.25);
+      }
+      .pbtn {
+        background: transparent;
+        border: 1px solid rgba(201, 169, 110, 0.65);
+        color: #c9a96e;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+      }
+      .pbtn:hover {
+        background: rgba(201, 169, 110, 0.15);
+      }
+      .minfo {
+        flex: 1;
+        min-width: 0;
+      }
+      .msong {
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-size: 1rem;
+        color: #f5e6d0;
+      }
+      .mart {
+        font-size: 11px;
+        color: #8a7560;
+        letter-spacing: 1px;
+      }
+      .mst {
+        font-size: 10px;
+        color: #8a7560;
+        margin-top: 3px;
+      }
+      .barsw {
+        display: flex;
+        align-items: flex-end;
+        gap: 3px;
+        height: 20px;
+      }
+      .b {
+        width: 3px;
+        border-radius: 2px;
+        background: #c9a96e;
+        height: 4px;
+      }
+      .b.on {
+        animation: bb 0.7s ease-in-out infinite alternate;
+      }
+      .b:nth-child(2).on {
+        animation-delay: 0.15s;
+      }
+      .b:nth-child(3).on {
+        animation-delay: 0.3s;
+      }
+      .b:nth-child(4).on {
+        animation-delay: 0.1s;
+      }
+      .b:nth-child(5).on {
+        animation-delay: 0.25s;
+      }
+      @keyframes bb {
+        0% {
+          height: 3px;
+        }
+        100% {
+          height: 18px;
+        }
+      }
+      .trow {
+        display: flex;
+        gap: 6px;
+        padding: 10px 14px;
+        background: rgba(0, 0, 0, 0.6);
+        overflow-x: auto;
+        align-items: center;
+        scrollbar-width: thin;
+      }
+      .th {
+        width: 44px;
+        height: 44px;
+        object-fit: cover;
+        border-radius: 7px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        flex-shrink: 0;
+      }
+      .th.on {
+        border-color: #c9a96e;
+      }
+      .footer {
+        text-align: center;
+        padding: 1.5rem 1rem 3rem;
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        color: #8a7560;
+        font-size: 0.95rem;
+      }
+      @media (max-width: 500px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .msgcard,
+        .media,
+        .song-selector,
+        .grid {
+          margin-left: 1rem;
+          margin-right: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <span class="rose">🌹</span>
+      <p class="sup">Una noche especial</p>
+      <h1 class="titulo">Mi amor,<br /><em>¿cenas conmigo?</em></h1>
+      <div class="divrow">
+        <div class="dl"></div>
+        <span style="color: #c9a96e; font-size: 11px">✦</span>
+        <div class="dr"></div>
+      </div>
+    </div>
+
+    <div class="msgcard">
+      <p>
+        Cada momento a tu lado es un regalo que atesoro con el alma.<br />
+        Quiero crear contigo una noche que nunca olvidemos,<br />
+        llena de luz, de música... y de nosotros dos.
+      </p>
+    </div>
+
+    <div class="grid">
+      <div class="dc">
+        <div class="ci">🕯️</div>
+        <div class="cl">Cuándo</div>
+        <div class="cv">Jueves 21-04-2026</div>
+      </div>
+      <div class="dc">
+        <div class="ci">📍</div>
+        <div class="cl">Dónde</div>
+        <div class="cv">🤫 Te sorprenderá...</div>
+      </div>
+      <div class="dc">
+        <div class="ci">👗</div>
+        <div class="cl">Dress code</div>
+        <div class="cv">Elegante</div>
+      </div>
+    </div>
+
+    <div class="rsvpw">
+      <button class="rbtn" onclick="aceptar()">
+        Acepto la invitación &nbsp;✦
+      </button>
+      <p class="rmsg" id="rmsg">¡Te esperaré con todo mi amor! 🌹</p>
+    </div>
+
+    <!-- Selector de canciones fijo -->
+    <div class="song-selector">
+      <span class="song-label">🎵 Elige canción</span>
+      <div class="song-buttons">
+        <button class="song-btn" data-song="cielo">Cielo de estrellas</button>
+        <button class="song-btn" data-song="sabes">Sabes</button>
+        <button class="song-btn" data-song="nadie">No hay nadie más</button>
+      </div>
+    </div>
+
+    <div class="media">
+      <div class="ss" id="ss">
+        <div class="sov"></div>
+        <div class="dots" id="dots"></div>
+        <button class="arrow left" id="arrl" onclick="goSlide(idx - 1)">
+          &#8592;
+        </button>
+        <button class="arrow right" id="arrr" onclick="goSlide(idx + 1)">
+          &#8594;
+        </button>
+      </div>
+      <div class="mbar">
+        <button class="pbtn" id="pbtn" onclick="togglePlay()">&#9654;</button>
+        <div class="minfo">
+          <div class="msong" id="msong">Cielo de estrellas</div>
+          <div class="mart" id="mart">Canción especial</div>
+          <div class="mst" id="mst">Selecciona una canción</div>
+        </div>
+        <div class="barsw">
+          <div class="b"></div>
+          <div class="b"></div>
+          <div class="b"></div>
+          <div class="b"></div>
+          <div class="b"></div>
+        </div>
+      </div>
+      <div class="trow" id="trow"></div>
+    </div>
+
+    <div class="footer">Con todo mi amor, para ti &nbsp;✦</div>
+
+    <audio id="aud" loop></audio>
+
+    <script>
+      // ============================================================
+      // === MODIFICAR AQUI NOMBRES DE ARCHIVOS DE CANCIONES ========
+      // ============================================================
+      // Pon aquí los nombres exactos de tus archivos MP3
+      // Ejemplo: "cielo_de_estrellas.mp3"
+      const CANCIONES = {
+        cielo: "CieloEstreallas.mp3",   // ← CAMBIA ESTO
+        sabes: "Sabes.mp3",               // ← CAMBIA ESTO
+        nadie: "NoHayNadieMas.mp3"     // ← CAMBIA ESTO
+      };
+
+      // Títulos y artistas para mostrar
+      const INFO_CANCION = {
+        cielo: { titulo: "Cielo de estrellas", artista: "Para ti ❤️" },
+        sabes: { titulo: "Sabes", artista: "Canción especial" },
+        nadie: { titulo: "No hay nadie más", artista: "Sebastián Yatra" }
+      };
+
+      // ============================================================
+      // === MODIFICAR AQUI LA LISTA DE FOTOS =======================
+      // ============================================================
+      // Pon aquí las rutas de tus fotos
+      // Ejemplo: "foto1.jpg", "foto2.jpg", "imagenes/mi_foto.png"
+      const LISTA_FOTOS = [
+        "1.png",    // ← CAMBIA ESTO
+        "2.jpg",    // ← CAMBIA ESTO
+        "3.jpg",   // ← CAMBIA ESTO (agrega más si quieres)
+        "4.jpg",  // ← CAMBIA ESTO (agrega más si quieres)
+        "5.jpg",     // ← CAMBIA ESTO (agrega más si quieres)
+        "6.jpg",     // ← CAMBIA ESTO (agrega más si quieres)
+        "7.jpg",     // ← CAMBIA ESTO (agrega más si quieres)
+        "8.jpg" ,    // ← CAMBIA ESTO (agrega más si quieres)
+        "9.jpeg",  // ← CAMBIA ESTO (agrega más si quieres)
+        "10.jpeg",     // ← CAMBIA ESTO (agrega más si quieres)
+        "11.jpeg",     // ← CAMBIA ESTO (agrega más si quieres)
+        "12.jpeg",     // ← CAMBIA ESTO (agrega más si quieres)
+        "13.jpeg",     // ← CAMBIA ESTO (agrega más si quieres)
+        "14.jpeg",  // ← CAMBIA ESTO (agrega más si quieres)
+        "15.jpeg",     // ← CAMBIA ESTO (agrega más si quieres)
+        "16.jpeg",     // ← CAMBIA ESTO (agrega más si quieres)
+        "17.jpeg",     // ← CAMBIA ESTO (agrega más si quieres)
+        "18.jpg",    // ← CAMBIA ESTO (agrega más si quieres)
+        "19.jpeg",     // ← CAMBIA ESTO (agrega más si quieres)
+        "20.jpeg",     // ← CAMBIA ESTO (agrega más si quieres)
+        "21.jpeg",     // ← CAMBIA ESTO (agrega más si quieres)
+        "22.jpeg"     // ← CAMBIA ESTO (agrega más si quieres)
+      
+      ];
+      // ============================================================
+
+      let idx = 0;
+      let autoTimer = null;
+      let playing = false;
+      let cancionActual = "cielo";
+
+      const aud = document.getElementById('aud');
+
+      // Inicializar fotos
+      function initFotos() {
+        const ss = document.getElementById('ss');
+        const dots = document.getElementById('dots');
+        const trow = document.getElementById('trow');
+
+        if (!LISTA_FOTOS.length) {
+          ss.innerHTML = '<div style="text-align:center;color:#8a7560">📷 Agrega fotos en LISTA_FOTOS</div>';
+          return;
+        }
+
+        // Limpiar contenedores
+        ss.innerHTML = '';
+        dots.innerHTML = '';
+        trow.innerHTML = '';
+
+        // Añadir sov y arrows de vuelta
+        const sov = document.createElement('div');
+        sov.className = 'sov';
+        const arrL = document.createElement('button');
+        arrL.className = 'arrow left';
+        arrL.innerHTML = '&#8592;';
+        arrL.onclick = () => goSlide(idx-1);
+        const arrR = document.createElement('button');
+        arrR.className = 'arrow right';
+        arrR.innerHTML = '&#8594;';
+        arrR.onclick = () => goSlide(idx+1);
+        ss.appendChild(sov);
+        ss.appendChild(arrL);
+        ss.appendChild(arrR);
+
+        // Añadir fotos
+        LISTA_FOTOS.forEach((src, i) => {
+          const img = document.createElement('img');
+          img.className = 'simg';
+          img.src = src;
+          img.alt = `Foto ${i+1}`;
+          ss.appendChild(img);
+
+          const dot = document.createElement('div');
+          dot.className = 'dot';
+          dot.onclick = () => goSlide(i);
+          dots.appendChild(dot);
+
+          const th = document.createElement('img');
+          th.className = 'th';
+          th.src = src;
+          th.onclick = () => goSlide(i);
+          trow.appendChild(th);
+        });
+
+        document.getElementById('arrl').style.display = 'flex';
+        document.getElementById('arrr').style.display = 'flex';
+        document.getElementById('trow').style.display = 'flex';
+
+        goSlide(0);
+        startAuto();
+      }
+
+      function goSlide(n) {
+        const imgs = document.querySelectorAll('.simg');
+        if (!imgs.length) return;
+        idx = ((n % imgs.length) + imgs.length) % imgs.length;
+        imgs.forEach((img, i) => img.classList.toggle('act', i === idx));
+        document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('act', i === idx));
+        document.querySelectorAll('.th').forEach((t, i) => t.classList.toggle('on', i === idx));
+      }
+
+      function startAuto() {
+        if (autoTimer) clearInterval(autoTimer);
+        autoTimer = setInterval(() => {
+          const imgs = document.querySelectorAll('.simg');
+          if (imgs.length > 1) goSlide(idx + 1);
+        }, 4500);
+      }
+
+      // Cambiar canción
+      function cambiarCancion(cancionId) {
+        cancionActual = cancionId;
+        const archivo = CANCIONES[cancionId];
+        const info = INFO_CANCION[cancionId];
+
+        if (!archivo) {
+          console.error('Archivo no encontrado para:', cancionId);
+          document.getElementById('mst').textContent = '❌ Archivo no encontrado';
+          return;
+        }
+
+        aud.src = archivo;
+        document.getElementById('msong').textContent = info.titulo;
+        document.getElementById('mart').textContent = info.artista;
+        document.getElementById('mst').textContent = '✅ Canción cargada. Toca ▶';
+
+        // Si estaba reproduciendo, seguir reproduciendo con la nueva
+        if (playing) {
+          aud.play().catch(e => console.log('Error al reproducir:', e));
+        }
+
+        // Actualizar botón activo
+        document.querySelectorAll('.song-btn').forEach(btn => {
+          if (btn.getAttribute('data-song') === cancionId) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+      }
+
+      function togglePlay() {
+        if (!aud.src || aud.src === window.location.href || !CANCIONES[cancionActual]) {
+          document.getElementById('mst').textContent = 'Primero selecciona una canción ↑';
+          return;
+        }
+
+        if (!playing) {
+          aud.play().then(() => {
+            playing = true;
+            document.getElementById('pbtn').innerHTML = '⏸';
+            document.querySelectorAll('.b').forEach(b => b.classList.add('on'));
+            document.getElementById('mst').textContent = '♪ Reproduciendo...';
+          }).catch(err => {
+            console.error(err);
+            document.getElementById('mst').textContent = 'Error al reproducir';
+          });
+        } else {
+          aud.pause();
+          playing = false;
+          document.getElementById('pbtn').innerHTML = '▶';
+          document.querySelectorAll('.b').forEach(b => b.classList.remove('on'));
+          document.getElementById('mst').textContent = 'Pausado';
+        }
+      }
+
+      function aceptar() {
+        document.querySelector('.rbtn').style.display = 'none';
+        document.getElementById('rmsg').style.display = 'block';
+      }
+
+      // Event listeners para botones de canciones
+      document.querySelectorAll('.song-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const cancionId = btn.getAttribute('data-song');
+          cambiarCancion(cancionId);
+        });
+      });
+
+      // Inicializar canción por defecto
+      cambiarCancion('cielo');
+
+      // Inicializar fotos
+      initFotos();
+    </script>
+  </body>
+</html>
